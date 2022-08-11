@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Sign-Up Page</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/register-style.css' %}">
+
+    <style>
+        .errorlist>li{
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <h3>Register Here</h3>
+        {% for field in register_form %}
+            <label for="{{ field.label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<div class="alert-danger">{{ field.errors }}</div>{% endif %}
+        {% endfor %}
+        <input type="submit" value="Sign Up" class="mc-btn btn-style-1">
+        <div class="social">
+            <div class="go"><a href="{% url "login" %}" style="text-decoration: none;"> <i class="fa fa-sign-in-alt"></i>  Log In</a></div>
+        </div>
+    </form>
+</body>
+</html>

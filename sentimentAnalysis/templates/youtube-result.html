@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube-Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+<body>
+<!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="{% url 'index' %}">Sentiment Analysis<span>.</span></a></h1>
+
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'login' %}">Log In</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'sign-up' %}">Sign up</a></li>
+        </ul>
+
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->   <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-12">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Business Sentiment Analysis Youtube</h1>
+                <h2 class="lg:w-2/3 mx-auto leading-relaxed text-base">Here, Enter The Link</h2>
+            </div>
+            <form method="POST">
+                <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+                    <div class="relative flex-grow w-full">
+                        {% csrf_token %}
+                        {% for field in input_form %}
+                            <label for="{{ field.label }}"> {{ field.label }}</label>
+                            {#  {% if field.field.required %}<span class="text-warning" style="color: #37ABF2; font-size: 17px; font-family: cursive;">*</span>{% endif %}#}
+                            {{ field }}
+                            {% if field.errors %}<div class="alert-danger">{{ field.errors }}</div>{% endif %}
+                        {% endfor %}
+                    </div>
+                    <input type="submit" value="Submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                </div>
+            </form>
+        </div>
+    </section>
+    {% if result %}
+
+        <h1>Overall Analysis</h1>
+        {{ overall_comments }}
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+        <canvas id="myChartPie" style="width:100%;max-width:600px"></canvas>
+        <h1>English Language Analysis</h1>
+        {{ english_comment }}
+        <canvas id="myChartPieEng" style="width:100%;max-width:600px"></canvas>
+        <h1>Urdu Language  Analysis</h1>
+        {{ urdu_comment }}
+        <canvas id="myChartPieUrdu" style="width:100%;max-width:600px"></canvas>
+        <h1>Emoji Analysis</h1>
+        {{ emoji_comment }}
+        <canvas id="myChartPieEmoji" style="width:100%;max-width:600px"></canvas>
+    {% endif %}
+
+    <script>
+        var xValues = {{ overall_language_name | safe }};
+        var yValues = {{ overall_language_summary | safe }};
+        var barColors = ["red", "green","blue","orange"];
+        new Chart("myChart", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                title: {
+                    display: true,
+                    text: "Business Sentiment Analysis"
+                }
+            }
+        });
+
+        var xValuesPie = ["Negative", "Positive", "Neutral"];
+        var yValuesPie = [ {% for key, val in overall_analysis.items %} {{ val }}, {% endfor %} ];
+        var pieColors = ["#b91d47", "#00aba9", "#e8c3b9"];
+        new Chart("myChartPie", {
+            type: "pie",
+            data: {
+                labels: xValuesPie,
+                datasets: [{
+                    backgroundColor: pieColors,
+                    data: yValuesPie
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Business Sentiment Analysis"
+                }
+            }
+        });
+
+        var xValuesPieEng = ["Negative", "Positive", "Neutral"];
+        var yValuesPieEng = [ {% for key, val in english_analysis.items %} {{ val }}, {% endfor %} ];
+        var pieColorsEng = ["#b91d47", "#00aba9", "#e8c3b9"];
+        new Chart("myChartPieEng", {
+            type: "pie",
+            data: {
+                labels: xValuesPieEng,
+                datasets: [{
+                    backgroundColor: pieColorsEng,
+                    data: yValuesPieEng
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Business Sentiment Analysis English"
+                }
+            }
+        });
+
+        var xValuesPieUrdu = ["Negative", "Positive", "Neutral"];
+        var yValuesPieUrdu = [ {% for key, val in urdu_analysis.items %} {{ val }}, {% endfor %} ];
+        var pieColorsUrdu = ["#b91d47", "#00aba9", "#e8c3b9"];
+        new Chart("myChartPieUrdu", {
+            type: "pie",
+            data: {
+                labels: xValuesPieUrdu,
+                datasets: [{
+                    backgroundColor: pieColorsUrdu,
+                    data: yValuesPieUrdu
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Business Sentiment Analysis on Urdu"
+                }
+            }
+        });
+
+        var xValuesPieEmoji = ["Negative", "Positive", "Neutral"];
+        var yValuesPieEmoji = [ {% for key, val in emoji_analysis.items %} {{ val }}, {% endfor %} ];
+        var pieColorsEmoji = ["#b91d47", "#00aba9", "#e8c3b9"];
+        new Chart("myChartPieEmoji", {
+            type: "pie",
+            data: {
+                labels: xValuesPieEmoji,
+                datasets: [{
+                    backgroundColor: pieColorsEmoji,
+                    data: yValuesPieEmoji
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Business Sentiment Analysis on Emoji"
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
