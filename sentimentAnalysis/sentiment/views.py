@@ -153,7 +153,7 @@ def twitter_result(request):
             twitter_name_id = fetch_twitter_name_id(input_form.cleaned_data.get('input_url'))
             # print(input_form.cleaned_data('input_url'))
             if twitter_name_id:
-                comment_list = fetch_replies_twitter(twitter_name_id['name'],twitter_name_id['tweet'])
+                comment_list = fetch_replies_twitter(twitter_name_id['name'],twitter_name_id['twitter_id'])
                 # comment_list = ["میں معافی چاہتا ہوں", "میں ٹھیک ہوں", "I am fine", "Video achi hai", "My name is khan 😂", "☮ 🙂 ❤"]
                 # if len(comment_list) > settings.COMMENTS_SIZE:
 

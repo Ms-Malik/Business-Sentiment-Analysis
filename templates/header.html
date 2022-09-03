@@ -1,0 +1,18 @@
+<header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+        <h1 class="logo"><a href="{% url 'dashboard' %}">Sentiment Analysis</a></h1>
+        <nav id="navbar" class="navbar">
+            {% if page_type == "logout" %}
+                <ul>
+                    <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'login' %}">Log In</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'sign-up' %}">Sign up</a></li>
+                </ul>
+            {% else %}
+                <a href="{% url 'logout' %}"><button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                    Logout
+                </button></a>
+            {% endif %}
+        </nav>
+    </div>
+</header>

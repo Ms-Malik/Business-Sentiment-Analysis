@@ -1,0 +1,53 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title-section %}BSD-Youtube Listing{% endblock %}
+{% block style-section %}
+    <style>
+        .custab{
+            width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5% 0;
+            box-shadow: 3px 3px 2px #ccc;
+            transition: 0.5s;
+        }
+        .custab:hover{
+            box-shadow: 3px 3px 0 transparent;
+            transition: 0.5s;
+        }
+    </style>
+{% endblock %}
+{% block page-content %}
+    <div class="container">
+        <div class="row col-md-12 custyle">
+            <table class="table table-striped custab" >
+
+                <h1 class="p-4"><b>Twitter Posts</b></h1>
+                <a href="{% url 'add-twitter-link' %}" class="btn btn-primary btn-xs "><b>+</b> Add new post</a>
+                <thead>
+                <tr>
+                    <th>Comments</th>
+{#                    <th>Last Updated</th>#}
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+                {% for post in twitter_posts %}
+                <tr>
+                    <td><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></td>
+{#                    <td>{{ post.last_updated }}</td>#}
+                    <td class="text-center">
+                        <a class='btn btn-info btn-xs' href="/sentiment/twitter-update/{{ post.id }}/">
+                            <span class="glyphicon glyphicon-edit"></span> Update
+                        </a>
+                        <a class="btn btn-primary btn-xs" href="/sentiment/twitter-result/{{ post.id }}/">
+                            <span class="glyphicon glyphicon-remove"></span> Analysis
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

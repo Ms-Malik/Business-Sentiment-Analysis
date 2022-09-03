@@ -1,0 +1,427 @@
+<!doctype html>
+{% load static %}
+<head>
+    <meta charset="utf-8"/>
+    <title>Results |Business Sentiment Analysis </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
+    <meta content="Themesbrand" name="author"/>
+    <link rel="shortcut icon" href="{% static 'img/clients/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/preloader.min.css' %}" type="text/css"/>
+    <link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css"/>
+    <style>
+        a:hover { text-decoration: none; }
+        .section-padding { padding: 60px 0; }
+        .bottom { background-color: #0a1c2e; }
+        .bottom .copyright { color: #e5e5e5; font-weight: 600; }
+        .copyright a { color: #f2ff49; margin-left: 3px; padding-right: 3px; }
+        .bottom p { margin-bottom: 0; line-height: 50px; font-size: 16px; font-weight: 400; }
+        .copyright p span { color: #d1caca; }
+        .bottom .copyright p, .bottom .copyright a:hover { color: #6c6d83; }
+    </style>
+</head>
+<body>
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <h1 class="logo px-5"><a href="{% url 'dashboard' %}">Sentiment Analysis</a></h1>
+                </div>
+                <div class="d-flex">
+                    <nav id="navbar" class="navbar">
+                        {% if page_type == "logout" %}
+                            <ul>
+                                <li><a class="nav-link scrollto active" href="{% url 'index' %}">Home</a></li>
+                                <li><a class="nav-link scrollto" href="{% url 'login' %}">Log In</a></li>
+                                <li><a class="nav-link scrollto" href="{% url 'sign-up' %}">Sign up</a></li>
+                            </ul>
+                        {% else %}
+                            <a href="{% url 'logout' %}">
+                                <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                                    Logout
+                                </button>
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18">Languages Classification</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-3">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">English</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in english_comment %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Urdu</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in urdu_comment %}
+                                                <li> {{ item }}
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Roman Urdu</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in roman_urdu_comment %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Emoji's</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in emoji_comment %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18">English</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Positive</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in english_analysis.positive_sent %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Negative</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in english_analysis.negative_sent %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Neutral</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in english_analysis.neutral_sent %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18">Urdu</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Positive</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in urdu_analysis.positive_sent %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Negative</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                        <ul>
+                                            {% for item in urdu_analysis.negative_sent %}
+                                                <li> {{ item }}</li>
+                                            {% empty %}
+                                                <h4>No record found.</h4>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card">
+                                    <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1">Neutral</h4>
+                                    </div>
+                                    <div class="card-body px-0">
+                                            <ul>
+                                                {% for item in urdu_analysis.neutral_sent %}
+                                                    <li> {{ item }}</li>
+                                                {% empty %}
+                                                    <h4>No record found.</h4>
+                                                {% endfor %}
+                                            </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                    <div class="row">#}
+{#                        <div class="col-12">#}
+{#                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">#}
+{#                                <h4 class="mb-sm-0 font-size-18">Roman Urdu</h4>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-xl-4">#}
+{#                            <div class="card">#}
+{#                                <div class="card-header align-items-center d-flex">#}
+{#                                    <h4 class="card-title mb-0 flex-grow-1">Positive</h4>#}
+{#                                </div>#}
+{#                                <div class="card-body px-0">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-xl-4">#}
+{#                            <div class="card">#}
+{#                                <div class="card-header align-items-center d-flex">#}
+{#                                    <h4 class="card-title mb-0 flex-grow-1">Negative</h4>#}
+{#                                </div>#}
+{#                                <div class="card-body px-0">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="col-xl-4">#}
+{#                            <div class="card">#}
+{#                                <div class="card-header align-items-center d-flex">#}
+{#                                    <h4 class="card-title mb-0 flex-grow-1">Neutral</h4>#}
+{#                                </div>#}
+{#                                <div class="card-body px-0">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18">Emoji's</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Positive</h4>
+                                </div>
+                                <div class="card-body px-0">
+                                    <ul>
+                                        {% for item in emoji_analysis.positive_sent %}
+                                            <li> {{ item }}</li>
+                                        {% empty %}
+                                            <h4>No record found.</h4>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex">
+                                    <h4 class="card-title mb-0 flex-grow-1">Negative</h4>
+                                </div>
+                                <div class="card-body px-0">
+                                    <ul>
+                                        {% for item in emoji_analysis.negative_sent %}
+                                            <li> {{ item }}</li>
+                                        {% empty %}
+                                            <h4>No record found.</h4>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="card">
+                                <div class="card-header align-items-center d-flex" >
+                                    <h4 class="card-title mb-0 flex-grow-1">Neutral</h4>
+                                </div>
+                                <div class="card-body px-0">
+                                    <ul>
+                                        {% for item in emoji_analysis.neutral_sent %}
+                                            <li> {{ item }}</li>
+                                        {% empty %}
+                                            <h4>No record found.</h4>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18">Analysis</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+        {#                <div class="col-xl-6">#}
+        {#                    <div class="card">#}
+        {#                        <div class="card-header"><h4 class="card-title mb-0">Scatter Chart</h4></div>#}
+        {#                        <div class="card-body">#}
+        {#                            <div id="scatter-chart" data-colors='["#2ab57d"]' class="e-charts"></div>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header"><h4 class="card-title mb-0">Pie Chart</h4></div>
+                                <div class="card-body">
+                                    <canvas id="pie" height="260" data-colors='["#2ab57d","#000000" , "#ebeff2"]'></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header"><h4 class="card-title mb-0">Donut Chart</h4></div>
+                                <div class="card-body">
+                                    <canvas id="doughnut" height="260" data-colors='["#5156be", "#ebeff2", "#23ae78", "#ee2390"]'></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header"><h4 class="card-title mb-0">Bar Chart</h4></div>
+                                <div class="card-body">
+                                    <canvas id="bar" height="300" data-colors='["rgba(41, 181, 125, 0.8)", "rgba(41, 181, 125, 0.9)"]'></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Features Extractions</h4>
+                        </div>
+                        <div class="card">
+                            <div class="card-header align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Features List</h4>
+                            </div>
+                            <div class="card-body px-5">
+                                {% for item in features_extraction_ %}
+                                    {{ item }}
+                                {% empty %}
+                                    <h4>No record found.</h4>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="copyright">
+                            <p>© <span>2022</span> <a href="#" class="transition">Business Sentiment Analysis</a> All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.min.js' %}"></script>
+    <script src="{% static 'js/waves.min.js' %}"></script>
+    <script src="{% static 'js/feather.min.js' %}"></script>
+    <script src="{% static 'js/pace.min.js' %}"></script>
+    <script src="{% static 'js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'js/chartjs.inti.js' %}"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'js/echarts.init.js' %}"></script>
+    <script>
+        pieChart({{ overall_analysis|safe }});
+        barChart({{ overall_language_summary|safe }}, {{ overall_language_name|safe }});
+        donutChart({{ overall_language_summary|safe }}, {{ overall_language_name|safe }});
+    </script>
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

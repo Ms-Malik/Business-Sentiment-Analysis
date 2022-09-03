@@ -1,0 +1,58 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title-section %}BSD-Index{% endblock %}
+{% block page-content %}
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container" data-aos="zoom-out" data-aos-delay="100">
+            <h1>Welcome to <span>Business Sentiment Analysis</span></h1>
+            <h2>Perform sentiment analysis on your youtube and twitter posts by just pasting the posts link</h2>
+            <a href="{% url 'login' %}" class="btn-get-started scrollto">Login</a>
+            <a href="{% url 'sign-up' %}" class="btn-get-started scrollto"><span>Register</span> </a>
+        </div>
+    </section>
+
+    <main id="main">
+
+        <section id="featured-services" class="featured-services">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4 class="title">Machine Learning Algorithms</h4>
+                            <p class="description">It will perform sentiment analysis on your data by three algo.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                            <div class="icon"><i class="bx bx-file"></i></div>
+                            <h4 class="title">Data Visualization</h4>
+                            <p class="description">Gain instant insight when you run an analysis on your data.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4 class="title">Free tool</h4>
+                            <p class="description">You can perform sentiment analysis on different data free of
+                                cost.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                            <div class="icon"><i class="bx bx-world"></i></div>
+                            <h4 class="title">Give suggestion</h4>
+                            <p class="description">It also gives suggestions according to reviews on your posts.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+{% endblock %}

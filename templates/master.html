@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title-section %}{% endblock %}</title>
+    <style>
+        h1 { text-align: center; }
+        a:hover { text-decoration: none; }
+        .section-padding { padding: 60px 0; }
+        .bottom { background-color: #0a1c2e; }
+        .bottom .copyright { color: #e5e5e5; font-weight: 600; }
+        .copyright a { color: #f2ff49; margin-left: 3px; padding-right: 3px; }
+        .bottom p { margin-bottom: 0; line-height: 50px; font-size: 16px; font-weight: 400; }
+        .copyright p span { color: #d1caca; }
+        .bottom .copyright p, .bottom .copyright a:hover { color: #6c6d83; }
+    </style>
+    {% block style-section %}{% endblock %}
+</head>
+<body>
+    {% include 'header.html' %}
+    {% block page-content %}{% endblock %}
+    {% include 'footer.html' %}
+    <script src="{% static 'vendor/purecounter/purecounter.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block script-section %}{% endblock %}
+</body>
+</html>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/account-style.css' %}">
 </head>
 <body>
-    <div class="background">
+    <div class="background";  bgcolor="FFFFFF">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
@@ -21,7 +21,7 @@
         {% for field in login_form %}
             <label for="{{ field.label }}">{{ field.label }}</label>
                 {{ field }}
-            {% if field.errors %}<div class="alert-danger" colo>{{ field.errors }}</div>{% endif %}
+            {% if field.errors %}<div class="alert-danger" ; bgcolor="#00ff00">{{ field.errors }}</div>{% endif %}
         {% endfor %}
         <input type="submit" value="Log In" />
         <div class="social">
